@@ -1,6 +1,6 @@
-import Button from "./Button";
-
-function HeroSection() {
+import React from "react";
+import AppButton from "./AppButton";
+const HeroSection = () => {
   return (
     <section className="w-full mt-28">
       <div className="w-[32%] pb-6 mr-auto ml-auto border-b-8 border-solid border-red-500 ">
@@ -11,15 +11,13 @@ function HeroSection() {
         </h1>
       </div>
       <div className="w-full text-center mt-12">
-        <Button
-          bgColor="red-500"
+        <AppButton
+          className="bg-red-600 text-white font-bold w-[120px] hover:bg-red-700  rounded h-[60px] pb-1"
           text="Get started"
-          bgColorHover="red-600"
-          textColor="text-white"
         />
       </div>
     </section>
   );
-}
+};
 
 export default HeroSection;
