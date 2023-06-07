@@ -1,6 +1,5 @@
 import React from "react";
 import AppButton from "./AppButton";
-import Auth from "./Auth";
 const HeroSection = () => {
   return (
     <section className="w-full mt-28">
@@ -17,7 +16,6 @@ const HeroSection = () => {
           text="Get started"
         />
       </div>
-      <Auth />
     </section>
   );
 };
