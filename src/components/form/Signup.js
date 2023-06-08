@@ -3,9 +3,9 @@ import { useForm } from "react-hook-form";
 import AppButton from "../AppButton";
 import Logo from "../../assets/images/newsly-logo.png";
 import { useContext } from "react";
-import AuthContext from "../../Pages/HomePage";
+import { AuthContext } from "../../Pages/HomePage";
 const Signup = () => {
-  const { updateAuthState } = useContext(AuthContext);
+  const { authState, updateAuthState } = useContext(AuthContext);
 
   const {
     register,

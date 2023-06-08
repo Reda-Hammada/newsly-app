@@ -4,8 +4,12 @@ import AppButton from "../AppButton";
 import { useDispatch } from "react-redux";
 import { toggleAuth } from "../../redux/authSlice";
 import Logo from "../../assets/images/newsly-logo.png";
+import { useContext } from "react";
+import { AuthContext } from "../../Pages/HomePage";
 
-const Login = (props) => {
+const Login = () => {
+  const { authState, updateAuthState } = useContext(AuthContext);
+
   const {
     register,
     handleSubmit,
@@ -13,7 +17,9 @@ const Login = (props) => {
   } = useForm();
 
   const dispatch = useDispatch();
-
+  const setSignUp = () => {
+    updateAuthState("signUp", true);
+  };
   const logIn = (data) => {
     if (data) {
       dispatch(
@@ -91,7 +97,7 @@ const Login = (props) => {
       <div className="text-center mt-5">
         <p>
           New to Newsly?
-          <span className="font-bold cursor-pointer" onClick={props.setSignUp}>
+          <span onClick={setSignUp} className="font-bold cursor-pointer">
             Sign up
           </span>
         </p>

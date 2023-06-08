@@ -9,7 +9,7 @@ export const AuthContext = createContext();
 
 const HomePage = () => {
   const [authState, setAuthState] = useState({
-    whichAuth: "signUp",
+    whichAuth: "",
     isAuth: false,
   });
 

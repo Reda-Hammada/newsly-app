@@ -6,15 +6,8 @@ import { AuthContext } from "../Pages/HomePage";
 const Auth = () => {
   const { authState, updateAuthState } = useContext(AuthContext);
 
-  const setSignIn = () => {
-    updateAuthState("logIn", true);
-  };
-
-  const setSignUp = () => {
-    updateAuthState("signUp", true);
-  };
   const closeAuthForm = () => {
-    updateAuthState("logIn", false);
+    updateAuthState("", false);
   };
 
   {
@@ -34,12 +27,8 @@ const Auth = () => {
         </div>
 
         {/*  tab between  component login and SignUp */}
-        {authState.whichAuth === "logIn" ? (
-          <Login setSignUp={setSignUp} />
-        ) : null}
-        {authState.whichAuth === "signUp" ? (
-          <Signup setSignIn={setSignIn} />
-        ) : null}
+        {authState.whichAuth === "logIn" ? <Login /> : null}
+        {authState.whichAuth === "signUp" ? <Signup /> : null}
       </div>
     </section>
   ) : null;
