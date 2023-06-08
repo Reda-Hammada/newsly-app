@@ -2,13 +2,20 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import AppButton from "../AppButton";
 import Logo from "../../assets/images/newsly-logo.png";
-const Signup = (props) => {
+import { useContext } from "react";
+import AuthContext from "../../Pages/HomePage";
+const Signup = () => {
+  const { updateAuthState } = useContext(AuthContext);
+
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
 
+  const setSignIn = () => {
+    updateAuthState("logIn", true);
+  };
   const Register = (data) => {
     console.log(data);
   };
@@ -99,7 +106,7 @@ const Signup = (props) => {
       <div className="text-center mt-5">
         <p>
           Already have an account?
-          <span className="font-bold cursor-pointer" onClick={props.setSignIn}>
+          <span className="font-bold cursor-pointer" onClick={setSignIn}>
             Log in
           </span>
         </p>
