@@ -2,11 +2,18 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import AppButton from "../AppButton";
 import Logo from "../../assets/images/newsly-logo.png";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { AuthContext } from "../../Pages/HomePage";
-const Signup = () => {
-  const { authState, updateAuthState } = useContext(AuthContext);
+import { useSelector, useDispatch } from "react-redux";
+import { registerUser } from "../../features/auth/authSlice";
 
+const Signup = () => {
+  // use context to tab between log in and register form
+  const { updateAuthState } = useContext(AuthContext);
+
+  const dispatch = useDispatch();
+
+  const {isSuccess, isError, message} = useSelector((state)=> state.auth || {}) 
   const {
     register,
     handleSubmit,
@@ -16,9 +23,12 @@ const Signup = () => {
   const setSignIn = () => {
     updateAuthState("logIn", true);
   };
+
   const Register = (data) => {
-    console.log(data);
+    const userData = data;
+    dispatch(registerUser(userData));
   };
+
   return (
     <div>
       <div className="w-full pt-3 text-center ">
@@ -56,7 +66,7 @@ const Signup = () => {
             <input
               className=" border border-md h-[35px] bg-gray-100 mt-2 w-[80%]  "
               type="email"
-              name="fullname"
+              name="email"
               {...register("email", {
                 required: true,
                 pattern: /^[^@ ]+@[^@ ]+\.[^@ .]{2,}$/,

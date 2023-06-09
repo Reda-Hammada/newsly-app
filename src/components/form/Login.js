@@ -2,7 +2,6 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import AppButton from "../AppButton";
 import { useDispatch } from "react-redux";
-import { toggleAuth } from "../../redux/authSlice";
 import Logo from "../../assets/images/newsly-logo.png";
 import { useContext } from "react";
 import { AuthContext } from "../../Pages/HomePage";
@@ -22,12 +21,6 @@ const Login = () => {
   };
   const logIn = (data) => {
     if (data) {
-      dispatch(
-        toggleAuth({
-          booleanValue: true,
-        })
-      );
-
       console.log(data);
     }
   };

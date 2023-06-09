@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import AppButton from "./AppButton";
 import { AuthContext } from "../Pages/HomePage";
 
@@ -8,6 +8,9 @@ const HeroSection = () => {
   const openSignUp = () => {
     updateAuthState("signUp", true);
   };
+
+
+
   return (
     <section className="w-full mt-28">
       <div className="w-[32%] pb-6 mr-auto ml-auto border-b-8 border-solid border-red-500 ">
@@ -22,6 +25,7 @@ const HeroSection = () => {
           className="bg-red-600 text-white font-bold w-[120px] hover:bg-red-700  rounded h-[60px] pb-1"
           text="Get started"
         />
+       
       </div>
     </section>
   );
