@@ -1,19 +1,22 @@
 import React from "react";
 import { useForm } from "react-hook-form";
-import AppButton from "../AppButton";
+import ReusableButton from "../ReusableButton ";
 import Logo from "../../assets/images/newsly-logo.png";
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 import { AuthContext } from "../../Pages/HomePage";
 import { useSelector, useDispatch } from "react-redux";
 import { registerUser } from "../../features/auth/authSlice";
-
 const Signup = () => {
   // use context to tab between log in and register form
   const { updateAuthState } = useContext(AuthContext);
 
   const dispatch = useDispatch();
 
-  const {isSuccess, isError, message} = useSelector((state)=> state.auth || {}) 
+  // import state globally
+  const { isSuccess, isError, message } = useSelector(
+    (state) => state.auth || {}
+  );
+
   const {
     register,
     handleSubmit,
@@ -107,7 +110,7 @@ const Signup = () => {
           </div>
         </div>
         <div className="text-center mt-6">
-          <AppButton
+          <ReusableButton
             text="Sign up"
             className="text-white w-[100px] mt-3 rounded  h-[40px] bg-red-500 hover:bg-red-600 font-bold"
           />

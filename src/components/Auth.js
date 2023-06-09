@@ -10,12 +10,11 @@ const Auth = () => {
     updateAuthState("", false);
   };
 
-  {
-    /* return authentications 
-    form if isAuth is true */
-  }
+  {/* return authentications 
+    form if isAuth is true */}
+    
   return authState.isAuth ? (
-    <section className="w-full h-full  absolute top-0 bg-opacity-50 bg-black">
+    <section className="w-vw overflow-hidden h-vh   absolute top-0 bg-opacity-50 bg-black">
       <div className="w-[420px] rounded-md bg-white ml-auto mr-auto mt-[6%] h-fit  pb-[3%]">
         <div
           onClick={closeAuthForm}

@@ -1,14 +1,19 @@
 import React from "react";
 import { useForm } from "react-hook-form";
-import AppButton from "../AppButton";
-import { useDispatch } from "react-redux";
+import ReusableButton  from "../ReusableButton ";
+import { useDispatch, useSelector } from "react-redux";
 import Logo from "../../assets/images/newsly-logo.png";
 import { useContext } from "react";
 import { AuthContext } from "../../Pages/HomePage";
+import { logInUser } from "../../features/auth/authSlice";
 
 const Login = () => {
+  // use context to tab between log in and register form
   const { authState, updateAuthState } = useContext(AuthContext);
-
+  // import state globally
+  const { isSuccess, isError, message } = useSelector(
+    (state) => state.auth || {}
+  );
   const {
     register,
     handleSubmit,
@@ -16,14 +21,18 @@ const Login = () => {
   } = useForm();
 
   const dispatch = useDispatch();
+
+  // tab to sign up form
   const setSignUp = () => {
     updateAuthState("signUp", true);
   };
+
+  // login the new user by calling dispatch in the auth slice to consume the login auth service
   const logIn = (data) => {
-    if (data) {
-      console.log(data);
-    }
+    const userData = data;
+    dispatch(logInUser(userData));
   };
+
   return (
     <div className="pt-7 ">
       <div className="w-full pt-3 text-center ">
@@ -80,7 +89,7 @@ const Login = () => {
           </div>
         </div>
         <div className="text-center mt-6">
-          <AppButton
+          <ReusableButton 
             text="Log in"
             className="text-white w-[100px] mt-3 rounded  h-[40px] bg-red-500 hover:bg-red-600 font-bold"
             type="submit"
