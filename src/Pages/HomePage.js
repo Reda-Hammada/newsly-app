@@ -1,9 +1,12 @@
 import React from "react";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { createContext } from "react";
+
 import Header from "../components/Header";
 import HeroSection from "../components/HeroSection";
+import SearchBar from "../components/SearchBar";
 import Auth from "../components/Auth";
+import Feed from "../components/Feed";
 
 export const AuthContext = createContext();
 
@@ -12,13 +15,6 @@ const HomePage = () => {
     whichAuth: "",
     isAuth: false,
   });
-  const [user, setUser] = useState(null);
-
-  useEffect(() => {
-    // Retrieve the user data from local storage
-    const userData = JSON.parse(localStorage.getItem("user"));
-    setUser(userData);
-  }, []);
 
   const updateAuthState = (whichAuthValue, isAuthValue) => {
     setAuthState({
@@ -30,8 +26,10 @@ const HomePage = () => {
     <div>
       <AuthContext.Provider value={{ authState, updateAuthState }}>
         <Header />
-        <HeroSection /> 
+        <HeroSection />
+        <SearchBar />
         <Auth />
+        <Feed />
       </AuthContext.Provider>
     </div>
   );

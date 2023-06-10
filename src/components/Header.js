@@ -1,5 +1,4 @@
 import React, { useContext } from "react";
-import SearchBar from "./SearchBar";
 import ReusableButton from "./ReusableButton ";
 import Logo from "../assets/images/newsly-logo.png";
 import { AuthContext } from "../Pages/HomePage";
@@ -26,12 +25,6 @@ const Header = () => {
             <img src={Logo} alt="Newsly Logo" />
           </div>
           {/* Logo */}
-
-          {/* Search bar */}
-          <div>
-            <SearchBar />
-          </div>
-          {/* Search bar */}
 
           {/* Auth button */}
           {user !== null ? (
