@@ -13,9 +13,7 @@ const Signup = () => {
   const dispatch = useDispatch();
 
   // import state globally
-  const { isSuccess, isError, message } = useSelector(
-    (state) => state.auth || {}
-  );
+  const { message, isError, isSignup } = useSelector((state) => state.auth);
 
   const {
     register,
@@ -49,7 +47,7 @@ const Signup = () => {
           <br />
           <div className="text-center mt-2 ">
             <input
-              className=" border border-md h-[35px] bg-gray-100 mt-2 w-[80%]  "
+              className=" border pl-3 border-md h-[35px] bg-gray-100 mt-2 w-[80%]  "
               type="text"
               name="fullname"
               {...register("fullname", {
@@ -67,7 +65,7 @@ const Signup = () => {
           <label className="font-bold text-xl ml-11">Email:</label>
           <div className="text-center mt-2">
             <input
-              className=" border border-md h-[35px] bg-gray-100 mt-2 w-[80%]  "
+              className=" border pl-3 border-md h-[35px] bg-gray-100 mt-2 w-[80%]  "
               type="email"
               name="email"
               {...register("email", {
@@ -89,7 +87,7 @@ const Signup = () => {
           <label className="font-bold text-xl ml-11">Password:</label>
           <div className="text-center mt-2">
             <input
-              className=" border border-md h-[35px] bg-gray-100 mt-2 w-[80%]  "
+              className="pl-3 border border-md h-[35px] bg-gray-100 mt-2 w-[80%]  "
               type="password"
               name="password"
               {...register("password", {
@@ -109,6 +107,12 @@ const Signup = () => {
             )}
           </div>
         </div>
+        {/*Sign up Error message */}
+        {isError && isSignup ? (
+          <div className="text-center mt-2 font-bold w-full text-red-500">
+            <p>{message}</p>
+          </div>
+        ) : null}
         <div className="text-center mt-6">
           <ReusableButton
             text="Sign up"

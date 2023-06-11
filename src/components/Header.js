@@ -1,10 +1,11 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import ReusableButton from "./ReusableButton ";
 import Logo from "../assets/images/newsly-logo.png";
 import { AuthContext } from "../Pages/HomePage";
-import useUserFromLocalStorage from "../hooks/useUserFromLocalStorage";
+import { useSelector } from "react-redux";
 const Header = () => {
   const { updateAuthState } = useContext(AuthContext);
+  const { isAuthenticated } = useSelector((state) => state.auth || {});
 
   const openLogIn = () => {
     updateAuthState("logIn", true);
@@ -14,28 +15,17 @@ const Header = () => {
     updateAuthState("signUp", true);
   };
 
-  const user = useUserFromLocalStorage();
-
   return (
     <div>
-      <header className="border-b-2 sticky  border-solid border-gray-100 pb-2">
+      <header className="border-b-2 fixed top-0 right-0 w-full bg-white  border-solid border-gray-100 pb-2">
         <nav className=" flex justify-between pt-2">
-          {/* Logo */}
           <div className=" w-[150px]">
             <img src={Logo} alt="Newsly Logo" />
           </div>
-          {/* Logo */}
-
-          {/* Auth button */}
-          {user !== null ? (
-            <div>
-              <h2>User Information</h2>
-              <p>ID: {user.id}</p>
-              <p>Full Name: {user.fullname}</p>
-              <p>Email: {user.email}</p>
-              <img src={user.imagePath} alt="lol" />
-            </div>
+          {isAuthenticated === true ? (
+            <p>User</p>
           ) : (
+            // Auth Buttons
             <div className="flex mr-5 mt-3">
               <div onClick={openSignUp} className="mr-3">
                 {/*Sign up */}
@@ -44,6 +34,7 @@ const Header = () => {
                   text="Sign up"
                 />
               </div>
+
               <div onClick={openLogIn}>
                 {/*Log in */}
                 <ReusableButton
@@ -51,6 +42,7 @@ const Header = () => {
                   text="Log in"
                 />
               </div>
+
               {/* Auth button */}
             </div>
           )}

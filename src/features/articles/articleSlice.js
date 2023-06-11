@@ -22,6 +22,22 @@ export const articlesForVisitor = createAsyncThunk(
   }
 );
 
+export const personalizedFeed = createAsyncThunk(
+  '"articles/user"',
+  async () => {
+    try {
+      // return await articlesService;
+    } catch (err) {
+      const message =
+        (err.response && err.response.data && err.response.data.message) ||
+        err.message ||
+        err.toString();
+
+      throw new Error(message);
+    }
+  }
+);
+
 export const articlesSlice = createSlice({
   name: "articles",
   initialState,

@@ -16,7 +16,7 @@ const Auth = () => {
   }
 
   return authState.isAuth ? (
-    <section className="w-full overflow-hidden h-full   absolute top-0 bg-opacity-50 bg-black">
+    <section className="w-[100wh] h-[100%] overflow-hidden right-0 left-0   absolute top-0 bg-opacity-50 bg-black">
       <div className="w-[420px] rounded-md bg-white ml-auto mr-auto mt-[6%] h-fit  pb-[3%]">
         <div
           onClick={closeAuthForm}

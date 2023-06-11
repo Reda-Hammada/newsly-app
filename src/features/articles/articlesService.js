@@ -1,20 +1,34 @@
 import axios from "axios";
+
+const newYorkTimesAPI =
+  "https://api.nytimes.com/svc/topstories/v2/world.json?api-key=GmFRNUnADqSdTumRHl11225UUGWsSY4w";
+
+const newsAPIForUser = "";
+
+// fetch article from newyorktimes for visitor
 const fetchArtilesForVisitor = async () => {
-  const response = await axios.get(
-    "https://newsapi.org/v2/top-headlines?country=us&pageSize=20&apiKey=e056ce2e987c4986a3bb905059444cd4"
-  );
+  const response = await axios.get(newYorkTimesAPI);
   if (response.data) {
     return response.data;
   }
 };
 
-const fetchArticlesByCategory = () => {};
+// fetch article from newyorktimes for authenticated user
+const fetchPersonalizedFeed = async () => {
+  const response = await axios.get(newsAPIForUser);
+  if (response.data) {
+    return response.data;
+  }
+};
 
-const fetchArticlesByKeywordAndFilter = () => {};
+const fetchArticlesByCategory = async () => {};
+
+const fetchArticlesByKeywordAndFilter = async () => {};
 
 const articlesService = {
   fetchArtilesForVisitor,
   fetchArticlesByKeywordAndFilter,
+  fetchPersonalizedFeed,
 };
 
 export default articlesService;

@@ -1,20 +1,24 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import ReusableButton from "./ReusableButton ";
 import { AuthContext } from "../Pages/HomePage";
 import Greeting from "../features/greetingService";
 import useUserFromLocalStorage from "../hooks/useUserFromLocalStorage";
+import { useSelector } from "react-redux";
+
 const HeroSection = () => {
+  const { isAuthenticated } = useSelector((state) => state.auth || {});
   const { updateAuthState } = useContext(AuthContext);
+  const user = useUserFromLocalStorage();
 
   const openSignUp = () => {
     updateAuthState("signUp", true);
   };
 
   const greeting = Greeting();
-  const user = useUserFromLocalStorage();
+
   return (
     <section className="w-full mt-28">
-      {user === null ? (
+      {isAuthenticated === false ? (
         <div>
           <div className="w-[90%] pb-6 mr-auto ml-auto  ">
             <h1 className="main-text-color text-center font-bold text-3xl">
@@ -36,7 +40,7 @@ const HeroSection = () => {
       ) : (
         <div className="ml-28">
           <p className="font-bold  text-main-text-color">
-            {greeting}, {user.fullname} !
+            {greeting},{user.fullname} !
           </p>
         </div>
       )}

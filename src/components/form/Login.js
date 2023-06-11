@@ -1,6 +1,6 @@
 import React from "react";
 import { useForm } from "react-hook-form";
-import ReusableButton  from "../ReusableButton ";
+import ReusableButton from "../ReusableButton ";
 import { useDispatch, useSelector } from "react-redux";
 import Logo from "../../assets/images/newsly-logo.png";
 import { useContext } from "react";
@@ -11,7 +11,7 @@ const Login = () => {
   // use context to tab between log in and register form
   const { authState, updateAuthState } = useContext(AuthContext);
   // import state globally
-  const { isSuccess, isError, message } = useSelector(
+  const { message, isSuccess, isError, isLogin } = useSelector(
     (state) => state.auth || {}
   );
   const {
@@ -50,7 +50,7 @@ const Login = () => {
           <br />
           <div className="text-center ">
             <input
-              className=" border border-md h-[35px] bg-gray-100 mt-2 w-[80%]  "
+              className=" pl-3 border border-md h-[35px] bg-gray-100 mt-2 w-[80%]  "
               type="email"
               name="email"
               {...register("email", {
@@ -73,7 +73,7 @@ const Login = () => {
           <label className="font-bold text-xl ml-11">Password:</label>
           <div className="text-center">
             <input
-              className=" border border-md h-[35px] bg-gray-100 mt-2 w-[80%]  "
+              className=" pl-3 border border-md h-[35px] bg-gray-100 mt-2 w-[80%]  "
               type="password"
               name="password"
               {...register("password", {
@@ -88,8 +88,14 @@ const Login = () => {
             )}
           </div>
         </div>
+        {/*Login Error message */}
+        {isError && isLogin ? (
+          <div className="text-center w-full text-red-500">
+            <p>{message}</p>
+          </div>
+        ) : null}
         <div className="text-center mt-6">
-          <ReusableButton 
+          <ReusableButton
             text="Log in"
             className="text-white w-[100px] mt-3 rounded  h-[40px] bg-red-500 hover:bg-red-600 font-bold"
             type="submit"

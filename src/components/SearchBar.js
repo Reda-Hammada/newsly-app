@@ -1,5 +1,4 @@
 import React from "react";
-import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 
 function SearchBar() {
