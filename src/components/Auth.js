@@ -1,8 +1,7 @@
 import React, { useContext } from "react";
 import Login from "./form/Login";
 import Signup from "./form/Signup";
-import { AuthContext } from "../Pages/HomePage";
-
+import { AuthContext } from "../App";
 const Auth = () => {
   const { authState, updateAuthState } = useContext(AuthContext);
 

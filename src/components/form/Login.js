@@ -4,8 +4,8 @@ import ReusableButton from "../ReusableButton ";
 import { useDispatch, useSelector } from "react-redux";
 import Logo from "../../assets/images/newsly-logo.png";
 import { useContext } from "react";
-import { AuthContext } from "../../Pages/HomePage";
 import { logInUser } from "../../features/auth/authSlice";
+import { AuthContext } from "../../App";
 
 const Login = () => {
   // use context to tab between log in and register form

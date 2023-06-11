@@ -1,6 +1,6 @@
 import React, { useContext, useEffect } from "react";
 import ReusableButton from "./ReusableButton ";
-import { AuthContext } from "../Pages/HomePage";
+import { AuthContext } from "../App";
 import Greeting from "../features/greetingService";
 import useUserFromLocalStorage from "../hooks/useUserFromLocalStorage";
 import { useSelector } from "react-redux";
@@ -40,7 +40,11 @@ const HeroSection = () => {
       ) : (
         <div className="ml-28">
           <p className="font-bold  text-main-text-color">
-            {greeting},{user.fullname} !
+            {user !== null ? (
+              <p>
+                {greeting},{user.fullname} !
+              </p>
+            ) : null}
           </p>
         </div>
       )}

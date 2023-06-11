@@ -1,12 +1,22 @@
 import React, { useContext, useEffect, useState } from "react";
 import ReusableButton from "./ReusableButton ";
 import Logo from "../assets/images/newsly-logo.png";
-import { AuthContext } from "../Pages/HomePage";
+import { AuthContext } from "../App";
 import { useSelector } from "react-redux";
+import Avatar from "./Avatar";
+import avatar from "../assets/images/avatar.png";
+import SettingDropDown from "./SettingDropDown";
+import useUserFromLocalStorage from "../hooks/useUserFromLocalStorage";
 const Header = () => {
   const { updateAuthState } = useContext(AuthContext);
   const { isAuthenticated } = useSelector((state) => state.auth || {});
+  const user = useUserFromLocalStorage();
 
+  const [settingState, setSettingState] = useState(false);
+
+  const toggleSettings = () => {
+    setSettingState(!settingState);
+  };
   const openLogIn = () => {
     updateAuthState("logIn", true);
   };
@@ -17,13 +27,31 @@ const Header = () => {
 
   return (
     <div>
-      <header className="border-b-2 fixed top-0 right-0 w-full bg-white  border-solid border-gray-100 pb-2">
+      <header className="border-b-2 fixed top-0 right-0 w-full bg-white  border-solid border-gray-100 ">
         <nav className=" flex justify-between pt-2">
           <div className=" w-[150px]">
             <img src={Logo} alt="Newsly Logo" />
           </div>
-          {isAuthenticated === true ? (
-            <p>User</p>
+          {isAuthenticated === true && user ? (
+            user.imagePath === false ? (
+              <div onClick={toggleSettings}>
+                <Avatar
+                  className={
+                    "W-[70px] cursor-pointer h-[60px] border-3 mr-12 mt-2  border rounded-full border-gray-300"
+                  }
+                  imageUser={avatar}
+                />
+              </div>
+            ) : (
+              <div onClick={toggleSettings}>
+                <Avatar
+                  className={
+                    "W-[70px] cursor-pointer h-[60px] border-3 mr-12 mt-2  border rounded-full border-gray-300"
+                  }
+                  imageUser={user.imagePath}
+                />
+              </div>
+            )
           ) : (
             // Auth Buttons
             <div className="flex mr-5 mt-3">
@@ -47,6 +75,7 @@ const Header = () => {
             </div>
           )}
         </nav>
+        {settingState === true ? <SettingDropDown /> : null}
       </header>
     </div>
   );

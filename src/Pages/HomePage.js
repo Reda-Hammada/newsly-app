@@ -16,26 +16,15 @@ const HomePage = () => {
   const { isAuthenticated } = useSelector((state) => state.auth || {});
   const user = useUserFromLocalStorage();
 
-  const [authState, setAuthState] = useState({
-    whichAuth: "",
-    isAuth: false,
-  });
+  
 
-  const updateAuthState = (whichAuthValue, isAuthValue) => {
-    setAuthState({
-      whichAuth: whichAuthValue,
-      isAuth: isAuthValue,
-    });
-  };
   return (
     <div className="overflow-y-scroll overflow-x-hidden h-screen">
-      <AuthContext.Provider value={{ authState, updateAuthState }}>
         <Header />
         <HeroSection />
         {isAuthenticated === true ? <SearchBar /> : <Auth />}
         <Feed />
         <Footer />
-      </AuthContext.Provider>
     </div>
   );
 };

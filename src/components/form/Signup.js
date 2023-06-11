@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import ReusableButton from "../ReusableButton ";
 import Logo from "../../assets/images/newsly-logo.png";
 import { useContext } from "react";
-import { AuthContext } from "../../Pages/HomePage";
+import { AuthContext } from "../../App";
 import { useSelector, useDispatch } from "react-redux";
 import { registerUser } from "../../features/auth/authSlice";
 const Signup = () => {

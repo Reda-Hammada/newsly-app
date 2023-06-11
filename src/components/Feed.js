@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import useUserFromLocalStorage from "../hooks/useUserFromLocalStorage";
 import { articlesForVisitor } from "../features/articles/articleSlice";
 import { useContext } from "react";
-import { AuthContext } from "../Pages/HomePage";
+import { AuthContext } from "../App";
 import ReusableButton from "./ReusableButton ";
 import ReusableArticle from "./ReusableArticle";
 
