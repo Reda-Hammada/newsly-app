@@ -1,10 +1,12 @@
 import Header from "../components/Header";
+import ReuSableLink from "../components/ReuSableLink";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import useUserFromLocalStorage from "../hooks/useUserFromLocalStorage";
 import { useEffect } from "react";
 import Avatar from "../components/Avatar";
 import avatar from "../assets/images/avatar.png";
+import SettingsForm from "../components/form/SettingsForm";
 
 const SettingPage = () => {
   const user = useUserFromLocalStorage();
@@ -22,6 +24,7 @@ const SettingPage = () => {
   return (
     <section>
       <Header />
+      <ReuSableLink secondLink="/Settings" />
       <section className="w-full mt-[5%]">
         <div className=" w-[80%] border-b pb-6 pl-6 flex justiyf-start  ml-[5%]">
           {user && user.imagePath === false ? (
@@ -51,10 +54,11 @@ const SettingPage = () => {
         </div>
         {/* user settings */}
         <div>
-          <p className="font-bold mt-12 ml-[5%] uppercase text-main-text-color text-2xl">
+          <p className="font-bold mt-12 ml-[6%] uppercase text-main-text-color text-2xl">
             User Settings
           </p>
         </div>
+        <SettingsForm />
       </section>
     </section>
   );

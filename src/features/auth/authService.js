@@ -20,6 +20,17 @@ const logIn = async (userData) => {
   }
 };
 
+const updateUserData = async (userData) => {
+  const response = await axios.post(`${API_URL}/login`, userData , {
+    headers:{
+      
+    }
+  });
+  if (response.data) {
+    localStorage.setItem("user", JSON.stringify(response.data.data));
+    return response.data.data; // Return the response data
+  }
+};
 // // log out
 // const logOut = async () => {
 //   const response = await axios.post(`${API_URL}/logout`, {
@@ -30,6 +41,7 @@ const logIn = async (userData) => {
 const authService = {
   register,
   logIn,
+  updateUserData,
 };
 
 export default authService;
