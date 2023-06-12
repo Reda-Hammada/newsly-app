@@ -6,10 +6,12 @@ import { useContext } from "react";
 import { AuthContext } from "../App";
 import ReusableButton from "./ReusableButton ";
 import ReusableArticle from "./ReusableArticle";
+import { useNavigate } from "react-router-dom";
 
 const Feed = () => {
   const { updateAuthState } = useContext(AuthContext);
 
+  const navigate = useNavigate();
   const { isLoading, articles } = useSelector((state) => state.articles);
   const { isAuthenticated } = useSelector((state) => state.auth || {});
   const user = useUserFromLocalStorage();
@@ -20,6 +22,10 @@ const Feed = () => {
     updateAuthState("signUp", true);
   };
 
+  // to navigate and pass article data to the article page
+  const handleArticleClick = (article) => {
+    navigate("/Article", { state: { article } });
+  };
   useEffect(() => {
     // if user not authenticated then fetch visitors articles
     if (isAuthenticated === false) {
@@ -40,18 +46,26 @@ const Feed = () => {
   } else if (isAuthenticated === false) {
     return (
       <>
-        <section className="w-[85%] mr-auto ml-auto ">
-          <div className="flex flex-row flex-wrap w-[100%] mt-12  justify-between">
+        <section className="w-[96%] mr-auto ml-auto ">
+          <div className="w-[100%] text-center mt-12 mb-12 font-bold text-2xl">
+            <p>
+              TOP HEADLINES
+              <br />
+              SIGN UP FOR MORE
+            </p>
+          </div>
+          <div className="flex flex-row flex-wrap w-[100%] mt-6  justify-evenly">
             {articles.results &&
-              articles.results
-                .slice(0, 9)
-                .map((article, index) => (
+              articles.results.slice(0, 12).map((article, index) => (
+                <div onClick={() => handleArticleClick(article)}>
                   <ReusableArticle
                     key={index}
                     title={article.title}
                     image={article.multimedia && article.multimedia[0]?.url}
+                    author={article.byline}
                   />
-                ))}
+                </div>
+              ))}
           </div>
         </section>
         <section className="mt-5   text-center w-full mb-12">

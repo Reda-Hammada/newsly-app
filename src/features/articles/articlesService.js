@@ -1,5 +1,6 @@
 import axios from "axios";
 
+// to get top headlines articles for visitors non user
 const newYorkTimesAPI =
   "https://api.nytimes.com/svc/topstories/v2/world.json?api-key=GmFRNUnADqSdTumRHl11225UUGWsSY4w";
 

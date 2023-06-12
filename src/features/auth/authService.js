@@ -20,28 +20,40 @@ const logIn = async (userData) => {
   }
 };
 
-const updateUserData = async (userData) => {
-  const response = await axios.post(`${API_URL}/login`, userData , {
-    headers:{
-      
-    }
+const UpdateUserData = async (userData) => {
+  const user = localStorage.getItem("user");
+  const response = await axios.post(`${API_URL}/user/${user.id}`, userData, {
+    headers: {
+      Authorization: "Bearer " + localStorage.user.accessToken,
+      "Content-Type": "application/json",
+    },
   });
   if (response.data) {
     localStorage.setItem("user", JSON.stringify(response.data.data));
     return response.data.data; // Return the response data
   }
 };
-// // log out
-// const logOut = async () => {
-//   const response = await axios.post(`${API_URL}/logout`, {
-//     headers: {},
-//   });
-// };
+// log out
+const logOut = async () => {
+  const user = localStorage.getItem("user");
+  const accessToken = user.accessToken;
+  console.log(accessToken);
+  const response = await axios.get(`${API_URL}/logout`, {
+    headers: {
+      Authorization: "Bearer " + accessToken,
+      "Content-Type": "application/json",
+    },
+  });
+  if (response.data) {
+    return response.data;
+  }
+};
 
 const authService = {
   register,
   logIn,
-  updateUserData,
+  UpdateUserData,
+  logOut,
 };
 
 export default authService;

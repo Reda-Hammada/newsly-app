@@ -25,6 +25,8 @@ const HeroSection = () => {
               GET INFROMED
               <br />
               READ WORLDWIDE NEWS FROM ONE PLACE
+              <br />
+              PERSONALIZED FEED FOR YOU
             </h1>
             <div className=" w-[40%] text-center mt-5 mr-auto ml-auto border-b-8 border-solid border-red-500 block"></div>
           </div>

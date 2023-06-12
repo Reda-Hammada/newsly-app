@@ -1,6 +1,7 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import HomePage from "./Pages/HomePage";
 import SettingsPage from "./Pages/SetttingsPage";
+import ArticlePage from "./Pages/ArticlePage";
 import { useState, createContext } from "react";
 
 export const AuthContext = createContext();
@@ -25,6 +26,7 @@ function App() {
           <Routes>
             <Route path="/" Component={HomePage} />
             <Route path="/Settings" Component={SettingsPage} />
+            <Route path="/Article" Component={ArticlePage} />
           </Routes>
         </div>
       </Router>

@@ -2,8 +2,12 @@ import { React, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import ReusableButton from "../ReusableButton ";
 import useUserFromLocalStorage from "../../hooks/useUserFromLocalStorage";
+import { useDispatch } from "react-redux";
+import { UpdateUserData } from "../../features/auth/authSlice";
+
 const SettingsForm = () => {
   const user = useUserFromLocalStorage();
+  const dispatch = useDispatch();
   const {
     register,
     handleSubmit,
@@ -19,7 +23,8 @@ const SettingsForm = () => {
   }, [user, setValue]);
 
   const updateUserData = (data) => {
-    console.log(data);
+    const userData = data;
+    dispatch(UpdateUserData(userData));
   };
   return (
     <section className="mb-12">
@@ -35,7 +40,6 @@ const SettingsForm = () => {
               {...register("fullname")}
             />
           </div>
-    
         </div>
         <div className="mt-6">
           <label className="font-bold text-xl ml-[6%]">Email:</label>
@@ -47,7 +51,6 @@ const SettingsForm = () => {
               {...register("email")}
             />
           </div>
-        
         </div>
         <div className="mt-6">
           <label className="font-bold text-xl ml-[6%]">Old password:</label>

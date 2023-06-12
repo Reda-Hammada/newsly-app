@@ -8,6 +8,7 @@ import Avatar from "../components/Avatar";
 import avatar from "../assets/images/avatar.png";
 import SettingsForm from "../components/form/SettingsForm";
 
+
 const SettingPage = () => {
   const user = useUserFromLocalStorage();
   const { isAuthenticated } = useSelector((state) => state.auth);
