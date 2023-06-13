@@ -92,7 +92,7 @@ const Feed = () => {
             Loading...
           </div>
         ) : (
-          <section>
+          <section className="w-[96%] mr-auto ml-auto">
             <div>
               <div className="ml-12 mt-12">
                 <p className="inline font-bold text-xl">FOR YOU </p>
@@ -106,15 +106,20 @@ const Feed = () => {
             </div>
             <div className="flex flex-row flex-wrap w-[100%] mt-6  justify-evenly">
               {articles.articles &&
-                articles.articles.slice(0, 24).map((article, index) => (
-                  <div onClick={() => handleArticleClick(article)} key={index}>
-                    <ReusableArticle
-                      title={article.title}
-                      image={article.urlToImage && article.urlToImage}
-                      author={article.author}
-                    />
-                  </div>
-                ))}
+                articles.articles
+                  .filter((article) => article.urlToImage !== null)
+                  .map((article, index) => (
+                    <div
+                      onClick={() => handleArticleClick(article)}
+                      key={index}
+                    >
+                      <ReusableArticle
+                        title={article.title}
+                        image={article.urlToImage}
+                        author={article.author}
+                      />
+                    </div>
+                  ))}
             </div>
           </section>
         )}

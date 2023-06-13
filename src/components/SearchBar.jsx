@@ -41,33 +41,44 @@ const SearchBar = () => {
             />
           </div>
           <div className="w-[100%] mt-6 ml-auto mr-auto">
-            <div className="w-[100%] flex flex-wrap justify-evenly">
+            <div className="flex flex-row flex-wrap w-[100%]  justify-evenly ">
               {/* Categories */}
+              <div className="mt-2">
+                <label className="font-bold">Category :</label>
+                <select className=" w-[100%]" {...register("category")}>
+                  <option value=""></option>
 
-              <label className="font-bold">Category :</label>
-              <select className=" w-[20%]" {...register("category")}>
-                <option value=""></option>
-
-                {categories &&
-                  categories.map((category) => (
-                    <option value={category}>{category}</option>
-                  ))}
-              </select>
+                  {categories &&
+                    categories.map((category) => (
+                      <option value={category}>{category}</option>
+                    ))}
+                </select>
+              </div>
               {/* sources */}
 
-              <label className="font-bold">Source :</label>
-              <select className=" w-[20%]" {...register("source")}>
-                <option value=""></option>
-                <option value="ABC News">ABC News</option>
-                <option value="Al Jazeera English">Al Jazeera English</option>
-                <option value="BBC News">BBC News</option>
-                <option value="Business Insider">Business Insider</option>
-                <option value="CNN">CNN</option>
-                <option value="CBS News">CBS News</option>
-              </select>
+              <div className="mt-2">
+                <label className="font-bold">Source :</label>
+                <select className=" w-[100%]" {...register("source")}>
+                  <option value=""></option>
+                  <option value="ABC News">ABC News</option>
+                  <option value="The Guardian">The Guardian</option>
+
+                  <option value="Al Jazeera English">Al Jazeera English</option>
+                  <option value="BBC News">BBC News</option>
+                  <option value="Business Insider">Business Insider</option>
+                  <option value="CNN">CNN</option>
+                </select>
+              </div>
               {/* date */}
-              <label className="font-bold">date :</label>
-              <input type="date" {...register("date")} />
+              <div className="mt-3 ">
+                <label className="font-bold mr-3 ">date :</label>
+
+                <input
+                  className="w-[100%] text-center"
+                  type="date"
+                  {...register("date")}
+                />
+              </div>
             </div>
           </div>
           <div className="text-center mt-6">

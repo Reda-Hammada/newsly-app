@@ -70,7 +70,7 @@ const ArticlePage = () => {
               />
             </div>
             <div className="w-[65vw] text-[18px] mt-3">
-              <p>{article.description}</p>
+              <p> {article.content.replace(/\[\+\d+ chars\]/g, "").trim()}</p>
             </div>
           </div>
         </div>

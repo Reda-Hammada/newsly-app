@@ -6,6 +6,8 @@ const initialState = {
   isLoading: false,
   categories: [],
   error: false,
+  isPersonalizedFeed: false,
+  isSearchAndFilter: false,
 };
 
 // ariticles for non authenticated users
@@ -45,9 +47,13 @@ export const availableCategories = createAsyncThunk(
 export const searchAndFilter = createAsyncThunk(
   "articles/search",
   async (data) => {
-    console.log(data);
     try {
-      return await articlesService.fetchArticlesByKeywordAndFilter(data);
+      const response = await articlesService.fetchArticlesByKeywordAndFilter(
+        data
+      );
+      // const { articlesByCategory, articlesBySource } = response;
+
+      return response;
     } catch (err) {
       const message =
         (err.response && err.response.data && err.response.data.message) ||
@@ -102,7 +108,10 @@ export const articlesSlice = createSlice({
     });
     builder.addCase(searchAndFilter.fulfilled, (state, action) => {
       state.isLoading = false;
-      state.articles = action.payload;
+      state.articles = {
+        ...action.payload.articlesBySource,
+        ...action.payload.articlesByCategory,
+      };
     });
   },
 });
