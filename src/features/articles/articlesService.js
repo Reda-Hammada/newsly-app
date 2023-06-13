@@ -6,6 +6,15 @@ const newYorkTimesAPI =
 
 const newsAPIForUser = "";
 
+// route api to get available categories for users to choose
+const categoriesAPI = "http://127.0.0.1:8000/api/categories";
+
+const fetchAvailabaleCategory = async () => {
+  const response = await axios.get(categoriesAPI);
+  if (response) {
+    return response.data.categories;
+  }
+};
 // fetch article from newyorktimes for visitor
 const fetchArtilesForVisitor = async () => {
   const response = await axios.get(newYorkTimesAPI);
@@ -27,6 +36,7 @@ const fetchArticlesByCategory = async () => {};
 const fetchArticlesByKeywordAndFilter = async () => {};
 
 const articlesService = {
+  fetchAvailabaleCategory,
   fetchArtilesForVisitor,
   fetchArticlesByKeywordAndFilter,
   fetchPersonalizedFeed,

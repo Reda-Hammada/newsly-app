@@ -1,13 +1,23 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
+import { useDispatch, useSelector } from "react-redux";
 import ReusableButton from "./ReusableButton ";
+import { availableCategories } from "../features/articles/articleSlice";
 
-function SearchBar() {
+const SearchBar = () => {
+  const dispatch = useDispatch();
+  const { categories } = useSelector((state) => state.articles);
   const { register, handleSubmit } = useForm();
 
+  useEffect(() => {
+    dispatch(availableCategories());
+    // Dispatch the action creator to fetch categories
+  }, [dispatch]);
+
   const fetchArticles = (data) => {};
+
   return (
-    // ultimate container for search bar
+    //ultimate container for search bar
     <section className="w-[80%] mt-12 ml-auto mr-auto">
       <div className="w-[100%]  ml-auto mr-auto">
         <p className="font-bold  pb-2  border-red-600 border-b-4 border-solid text-xl">
@@ -33,14 +43,23 @@ function SearchBar() {
               <label className="font-bold">Category :</label>
               <select className=" w-[20%]">
                 <option value=""></option>
-                <option></option>
+
+                {categories &&
+                  categories.map((category) => (
+                    <option value={category}>{category}</option>
+                  ))}
               </select>
               {/* sources */}
 
               <label>Source :</label>
               <select className=" w-[20%]">
                 <option value=""></option>
-                <option></option>
+                <option value="ABC News">ABC News</option>
+                <option value="Al Jazeera English">Al Jazeera English</option>
+                <option value="BBC News">BBC News</option>
+                <option value="Business Insider">Business Insider</option>
+                <option value="CNN">CNN</option>
+                <option value="CBS News">CBS News</option>
               </select>
               {/* date */}
               <label>From :</label>
@@ -53,6 +72,6 @@ function SearchBar() {
       </div>
     </section>
   );
-}
+};
 
 export default SearchBar;
