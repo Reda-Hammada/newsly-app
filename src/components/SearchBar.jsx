@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import ReusableButton from "./ReusableButton ";
+import { searchAndFilter } from "../features/articles/articleSlice";
 import { availableCategories } from "../features/articles/articleSlice";
 
 const SearchBar = () => {
@@ -14,7 +15,10 @@ const SearchBar = () => {
     // Dispatch the action creator to fetch categories
   }, [dispatch]);
 
-  const fetchArticles = (data) => {};
+  // search and filter articles
+  const searchArticles = (data) => {
+    dispatch(searchAndFilter(data));
+  };
 
   return (
     //ultimate container for search bar
@@ -25,7 +29,7 @@ const SearchBar = () => {
         </p>
       </div>
       <div className="w-[100%] pb-12 rounded bg-gray-100 ml-auto mr-auto  mt-12">
-        <form onSubmit={handleSubmit(fetchArticles)}>
+        <form onSubmit={handleSubmit(searchArticles)}>
           <div className="w-[100%]  text-center">
             <input
               className=" mt-12 pl-5 h-[40px] w-[70%] "
@@ -41,7 +45,7 @@ const SearchBar = () => {
               {/* Categories */}
 
               <label className="font-bold">Category :</label>
-              <select className=" w-[20%]">
+              <select className=" w-[20%]" {...register("category")}>
                 <option value=""></option>
 
                 {categories &&
@@ -51,8 +55,8 @@ const SearchBar = () => {
               </select>
               {/* sources */}
 
-              <label>Source :</label>
-              <select className=" w-[20%]">
+              <label className="font-bold">Source :</label>
+              <select className=" w-[20%]" {...register("source")}>
                 <option value=""></option>
                 <option value="ABC News">ABC News</option>
                 <option value="Al Jazeera English">Al Jazeera English</option>
@@ -62,11 +66,16 @@ const SearchBar = () => {
                 <option value="CBS News">CBS News</option>
               </select>
               {/* date */}
-              <label>From :</label>
-              <input type="date" />
-              <label>to :</label>
-              <input type="date" />
+              <label className="font-bold">date :</label>
+              <input type="date" {...register("date")} />
             </div>
+          </div>
+          <div className="text-center mt-6">
+            <ReusableButton
+              text="search"
+              className="text-white w-[100px] mt-3 rounded  h-[40px] bg-red-500 hover:bg-red-600 font-bold"
+              type="submit"
+            />
           </div>
         </form>
       </div>

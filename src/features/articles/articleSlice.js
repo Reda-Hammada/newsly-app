@@ -25,6 +25,7 @@ export const articlesForVisitor = createAsyncThunk(
   }
 );
 
+// available categories
 export const availableCategories = createAsyncThunk(
   "articles/availableCategories",
   async () => {
@@ -41,6 +42,22 @@ export const availableCategories = createAsyncThunk(
   }
 );
 
+export const searchAndFilter = createAsyncThunk(
+  "articles/search",
+  async (data) => {
+    console.log(data);
+    try {
+      return await articlesService.fetchArticlesByKeywordAndFilter(data);
+    } catch (err) {
+      const message =
+        (err.response && err.response.data && err.response.data.message) ||
+        err.message ||
+        err.toString();
+
+      throw new Error(message);
+    }
+  }
+);
 export const personalizedFeed = createAsyncThunk(
   '"articles/user"',
   async () => {
@@ -75,6 +92,17 @@ export const articlesSlice = createSlice({
     });
     builder.addCase(availableCategories.fulfilled, (state, action) => {
       state.categories = action.payload;
+    });
+    builder.addCase(searchAndFilter.pending, (state, action) => {
+      state.isLoading = true;
+    });
+    builder.addCase(searchAndFilter.rejected, (state, action) => {
+      state.isLoading = false;
+      state.articles = [];
+    });
+    builder.addCase(searchAndFilter.fulfilled, (state, action) => {
+      state.isLoading = false;
+      state.articles = action.payload;
     });
   },
 });

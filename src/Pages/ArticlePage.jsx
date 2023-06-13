@@ -49,7 +49,36 @@ const ArticlePage = () => {
 
     // article for authenticated users
   } else if (isAuthenticated === true) {
-    return <div>soon</div>;
+    return (
+      <div className="overflow-y-scroll overflow-x-hidden h-screen">
+        <Header />
+        <ReuSableLink title={article.title} />
+        <Auth />
+        <div className="w-[90%] mb-32 mr-auto ml-auto">
+          <div className="w-[100%]">
+            <div>
+              <h1 className="font-bold text-3xl mt-6 mb-1">{article.title}</h1>
+            </div>
+            <div className="mb-9">
+              <p className="text-gray-400 ml-2">{article.author}</p>
+            </div>
+            <div className="">
+              <img
+                className="w-[75vw] h-[60vh] "
+                src={article.urlToImage}
+                alt="article image"
+              />
+            </div>
+            <div className="w-[65vw] text-[18px] mt-3">
+              <p>{article.description}</p>
+            </div>
+          </div>
+        </div>
+        <div className="mt-16 mb-12">
+          <Footer />
+        </div>
+      </div>
+    );
   }
 };
 

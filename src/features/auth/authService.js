@@ -7,6 +7,8 @@ const register = async (userData) => {
   const response = await axios.post(`${API_URL}/register`, userData);
   if (response.data) {
     localStorage.setItem("user", JSON.stringify(response.data.data));
+    localStorage.setItem("isAuthenticated", true);
+
     return response.data.data; // Return the response data
   }
 };
@@ -16,6 +18,8 @@ const logIn = async (userData) => {
   const response = await axios.post(`${API_URL}/login`, userData);
   if (response.data) {
     localStorage.setItem("user", JSON.stringify(response.data.data));
+    localStorage.setItem("isAuthenticated", true);
+
     return response.data.data; // Return the response data
   }
 };
@@ -30,11 +34,15 @@ const UpdateUserData = async (userData) => {
   });
   if (response.data) {
     localStorage.setItem("user", JSON.stringify(response.data.data));
+
     return response.data.data; // Return the response data
   }
 };
 
-const logout = () => localStorage.removeItem("user");
+const logout = () => {
+  localStorage.removeItem("user");
+  localStorage.removeItem("isAuthenticated");
+};
 
 const authService = {
   register,

@@ -104,6 +104,18 @@ const Feed = () => {
                 <p className=" text-[17px]">Best of what interests you</p>
               </div>
             </div>
+            <div className="flex flex-row flex-wrap w-[100%] mt-6  justify-evenly">
+              {articles.articles &&
+                articles.articles.slice(0, 24).map((article, index) => (
+                  <div onClick={() => handleArticleClick(article)} key={index}>
+                    <ReusableArticle
+                      title={article.title}
+                      image={article.urlToImage && article.urlToImage}
+                      author={article.author}
+                    />
+                  </div>
+                ))}
+            </div>
           </section>
         )}
       </>
