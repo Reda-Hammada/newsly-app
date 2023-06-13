@@ -8,7 +8,6 @@ import Avatar from "../components/Avatar";
 import avatar from "../assets/images/avatar.png";
 import SettingsForm from "../components/form/SettingsForm";
 
-
 const SettingPage = () => {
   const user = useUserFromLocalStorage();
   const { isAuthenticated } = useSelector((state) => state.auth);
@@ -16,12 +15,12 @@ const SettingPage = () => {
 
   // if user not authenticated redirect him to the home page
   useEffect(() => {
-    if (isAuthenticated === false && user === null) {
+    if (isAuthenticated === false) {
       navigate("/");
     } else {
       navigate("/Settings");
     }
-  }, [isAuthenticated, user]);
+  }, [isAuthenticated]);
   return (
     <section>
       <Header />

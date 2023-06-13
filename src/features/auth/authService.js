@@ -33,27 +33,14 @@ const UpdateUserData = async (userData) => {
     return response.data.data; // Return the response data
   }
 };
-// log out
-const logOut = async () => {
-  const user = localStorage.getItem("user");
-  const accessToken = user.accessToken;
-  console.log(accessToken);
-  const response = await axios.get(`${API_URL}/logout`, {
-    headers: {
-      Authorization: "Bearer " + accessToken,
-      "Content-Type": "application/json",
-    },
-  });
-  if (response.data) {
-    return response.data;
-  }
-};
+
+const logout = () => localStorage.removeItem("user");
 
 const authService = {
   register,
   logIn,
   UpdateUserData,
-  logOut,
+  logout,
 };
 
 export default authService;

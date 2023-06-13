@@ -90,7 +90,7 @@ const Login = () => {
         </div>
         {/*Login Error message */}
         {isError && isLogin ? (
-          <div className="text-center w-full text-red-500">
+          <div className="text-center font-bold w-full mt-2 text-red-500">
             <p>{message}</p>
           </div>
         ) : null}

@@ -32,7 +32,8 @@ const Feed = () => {
       dispatch(articlesForVisitor());
     }
     // if user is authenticated then fetch personalized articles for the user
-    else if (isAuthenticated === true) {
+    else if (isAuthenticated === true ) {
+      
     }
   }, [isAuthenticated, user]);
 
@@ -56,7 +57,7 @@ const Feed = () => {
           </div>
           <div className="flex flex-row flex-wrap w-[100%] mt-6  justify-evenly">
             {articles.results &&
-              articles.results.slice(0, 12).map((article, index) => (
+              articles.results.slice(0, 24).map((article, index) => (
                 <div onClick={() => handleArticleClick(article)}>
                   <ReusableArticle
                     key={index}

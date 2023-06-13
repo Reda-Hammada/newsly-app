@@ -9,7 +9,9 @@ const ReusableArticle = (props) => {
         <img src={image} alt="article image" className=" w-[100%] h-[320px]" />
       </div>
       <div className="w-[90%]">
-        <p className="ml-5  text-main-text-color text-[20px]  mt-3">{title}</p>
+        <p className="ml-5  text-main-text-color text-[20px]  mt-3">
+          / {title}
+        </p>
       </div>
       <div className="w-[100%">
         <p className="ml-6 text-gray-400">{author}</p>

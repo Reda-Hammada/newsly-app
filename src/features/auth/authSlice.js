@@ -35,10 +35,7 @@ export const logInUser = createAsyncThunk(
       return response.data;
     } catch (err) {
       const message =
-        (err.response &&
-          err.response.data &&
-          err.response.data.message &&
-          err.response.message) ||
+        (err.response && err.response.data && err.response.data.message) ||
         err.message ||
         err.toString();
 
@@ -48,40 +45,12 @@ export const logInUser = createAsyncThunk(
 );
 
 export const LogoutUser = createAsyncThunk("auth/logout", async (thunkAPI) => {
-  try {
-    const response = await authService.logOut();
-    return response.data;
-  } catch (err) {
-    const message =
-      (err.response &&
-        err.response.data &&
-        err.response.data.message &&
-        err.response.message) ||
-      err.message ||
-      err.toString();
-
-    return thunkAPI.rejectWithValue(message);
-  }
+  await authService.logout();
 });
 
 export const UpdateUserData = createAsyncThunk(
   "auth/Updateuserdata",
-  async (userData, thunkAPI) => {
-    try {
-      const response = await authService.UpdateUserData(userData);
-      return response.data.data;
-    } catch (err) {
-      const message =
-        (err.response &&
-          err.response.data &&
-          err.response.data.message &&
-          err.response.message) ||
-        err.message ||
-        err.toString();
-
-      return thunkAPI.rejectWithValue(message);
-    }
-  }
+  async () => {}
 );
 
 export const authSlice = createSlice({
@@ -92,7 +61,6 @@ export const authSlice = createSlice({
     // Sign up
     builder.addCase(registerUser.fulfilled, (state, action) => {
       state.isAuthenticated = true;
-      localStorage.setItem("isAuthenticated", "true");
       state.message = action.payload;
       state.isSuccess = true;
       state.isError = false;
@@ -111,28 +79,26 @@ export const authSlice = createSlice({
     // Sign in
     builder.addCase(logInUser.fulfilled, (state, action) => {
       state.isAuthenticated = true;
-      localStorage.setItem("isAuthenticated", "true");
       state.message = action.payload;
-      state.isLogin = true;
+      state.isLogin = false;
+      state.isSignup = false;
+      state.isLogin = false;
+      state.isError = false;
       state.isSignup = false;
     });
     builder.addCase(logInUser.rejected, (state, action) => {
-      state.message = action.payload;
       state.isAuthenticated = false;
-      localStorage.setItem("isAuthenticated", "false");
+      state.message = action.payload;
+      state.isSuccess = false;
+      state.isError = true;
       state.isLogin = true;
       state.isSignup = false;
     });
     // Log out
     builder.addCase(LogoutUser.fulfilled, (state, action) => {
       state.isAuthenticated = false;
-      localStorage.removeItem("isAuthenticated");
-      localStorage.removeItem("user");
     });
-    builder.addCase(LogoutUser.rejected, (state, action) => {
-      state.isError = false;
-      state.message = action.payload;
-    });
+
     builder.addCase(UpdateUserData.fulfilled, (state, action) => {
       state.isError = false;
       state.isSuccess = true;

@@ -40,11 +40,11 @@ const HeroSection = () => {
           </div>
         </div>
       ) : (
-        <div className="ml-28">
+        <div className="ml-5 w-[100%] text-start">
           <p className="font-bold  text-main-text-color">
             {user !== null ? (
-              <p>
-                {greeting},{user.fullname} !
+              <p className="text-xl">
+                {greeting}, {user.fullname} !
               </p>
             ) : null}
           </p>

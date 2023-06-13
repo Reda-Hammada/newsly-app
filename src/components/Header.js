@@ -32,8 +32,8 @@ const Header = () => {
           <div className=" w-[150px]">
             <img src={Logo} alt="Newsly Logo" />
           </div>
-          {isAuthenticated === true && user ? (
-            user.imagePath === false ? (
+          {isAuthenticated === true ? (
+            user && user.imagePath == false ? (
               <div onClick={toggleSettings}>
                 <Avatar
                   className={
@@ -48,7 +48,7 @@ const Header = () => {
                   className={
                     "W-[70px] cursor-pointer h-[60px] border-3 mr-12 mt-2  border rounded-full border-gray-300"
                   }
-                  imageUser={user.imagePath}
+                  imageUser={user && user.imagePath}
                 />
               </div>
             )

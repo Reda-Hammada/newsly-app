@@ -18,7 +18,7 @@ const ArticlePage = () => {
         <Header />
         <ReuSableLink title={article.title} />
         <Auth />
-        <div className="w-[80%] mb-32 mr-auto ml-auto">
+        <div className="w-[90%] mb-32 mr-auto ml-auto">
           <div className="w-[100%]">
             <div>
               <h1 className="font-bold text-3xl mt-6 mb-1">{article.title}</h1>
@@ -28,17 +28,17 @@ const ArticlePage = () => {
             </div>
             <div className="">
               <img
-                className="w-[70vw] h-[40vh] "
+                className="w-[75vw] h-[60vh] "
                 src={article.multimedia[0].url}
                 alt="article image"
               />
             </div>
-            <div className="w-[75vw] text-[18px] mt-3">
+            <div className="w-[65vw] text-[18px] mt-3">
               <p>{article.abstract}</p>
             </div>
           </div>
         </div>
-        <div className="w-[100%] pb-[1px] pb-[10px] bg-gray-100">
+        <div className="w-[100%] pt-[0.25%] pb-[6%] bg-gray-100">
           <HeroSection />
         </div>
         <div className="mt-16 mb-12">
