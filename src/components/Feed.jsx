@@ -12,7 +12,9 @@ const Feed = () => {
   const { updateAuthState } = useContext(AuthContext);
 
   const navigate = useNavigate();
-  const { isLoading, articles } = useSelector((state) => state.articles);
+  const { isLoading, articles, isSearchAndFilter, isPersonalizedFeed} = useSelector(
+    (state) => state.articles
+  );
   const { isAuthenticated } = useSelector((state) => state.auth || {});
   const user = useUserFromLocalStorage();
   const dispatch = useDispatch();
@@ -38,7 +40,7 @@ const Feed = () => {
 
   // feed for visitors
   if (isAuthenticated === false) {
-    return (
+    return ( 
       <>
         {isLoading ? (
           <div className="w-full mt-12 text-center text-gray-700 text-[18px] mb-[80%]">
@@ -85,8 +87,51 @@ const Feed = () => {
   }
   // feed for authenticated users
   if (isAuthenticated === true) {
-    return (
-      <>
+    if (isSearchAndFilter === true) {
+      return ( // feed by search and filter
+        <>
+          {isLoading ? (
+            <div className="w-full mt-12 text-center text-gray-700 text-[18px] mb-[80%]">
+              Loading...
+            </div>
+          ) : (
+            <section className="w-[96%] mr-auto ml-auto">
+              <div>
+                <div className="ml-12 mt-12">
+                  <p className="inline font-bold text-xl">FOR YOU </p>
+                  <img
+                    className="w-[30px] mb-1 ml-3  inline"
+                    src={filter}
+                    alt="filter icond"
+                  />
+                  <p className=" text-[17px]">Best of what interests you</p>
+                </div>
+              </div>
+              <div className="flex flex-row flex-wrap w-[100%] mt-6  justify-evenly">
+                {articles.articles &&
+                  articles.articles
+                    .filter((article) => article.urlToImage !== null)
+                    .map((article, index) => (
+                      <div
+                        onClick={() => handleArticleClick(article)}
+                        key={index}
+                      >
+                        <ReusableArticle
+                          title={article.title}
+                          image={article.urlToImage}
+                          author={article.author}
+                        />
+                      </div>
+                    ))}
+              </div>
+            </section>
+          )}
+        </>
+      );
+    } // personalized feed for authenticated users
+    else if(isPersonalizedFeed === true){
+      return(
+        <>
         {isLoading ? (
           <div className="w-full mt-12 text-center text-gray-700 text-[18px] mb-[80%]">
             Loading...
@@ -124,7 +169,8 @@ const Feed = () => {
           </section>
         )}
       </>
-    );
+      )
+    }
   }
 };
 

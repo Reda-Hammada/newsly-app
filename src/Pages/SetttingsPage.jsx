@@ -11,6 +11,8 @@ import SettingsForm from "../components/form/SettingsForm";
 const SettingPage = () => {
   const user = useUserFromLocalStorage();
   const { isAuthenticated } = useSelector((state) => state.auth);
+  const { isDarkTheme } = useSelector((state) => state.theme);
+
   const navigate = useNavigate();
 
   // if user not authenticated redirect him to the home page
@@ -22,10 +24,14 @@ const SettingPage = () => {
     }
   }, [isAuthenticated]);
   return (
-    <section>
+    <section
+      className={` ${
+        isDarkTheme ? "bg-dark-theme-color text-white" : "bg-white  text-black "
+      }`}
+    >
       <Header />
-      <ReuSableLink secondLink="/Settings" />
-      <section className="w-full mt-[5%]">
+      <ReuSableLink secondLink="Settings" />
+      <section className="w-full h-[100% ] mt-[5%]">
         <div className=" w-[80%] border-b pb-6 pl-6 flex justiyf-start  ml-[5%]">
           {user && user.imagePath === false ? (
             <>
@@ -38,7 +44,7 @@ const SettingPage = () => {
                 />
               </div>
               <div>
-                <p className="text-2xl mt-4  uppercase text-main-text-color  font-bold">
+                <p className="text-2xl mt-4  uppercase   font-bold">
                   {user && user.fullname}
                 </p>
               </div>
@@ -46,7 +52,7 @@ const SettingPage = () => {
           ) : (
             <div className="w-[80%]">
               <Avatar imageUser={user && user.imagePath} />
-              <p className="text-2xl uppercase text-main-text-color font-bold">
+              <p className="text-2xl uppercase  font-bold">
                 {user && user.fullname}
               </p>
             </div>
@@ -54,11 +60,13 @@ const SettingPage = () => {
         </div>
         {/* user settings */}
         <div>
-          <p className="font-bold mt-12 ml-[6%] uppercase text-main-text-color text-2xl">
+          <p className="font-bold mt-12 ml-[6%] uppercase  text-2xl">
             User Settings
           </p>
         </div>
-        <SettingsForm />
+        <div className="">
+          <SettingsForm />
+        </div>
       </section>
     </section>
   );

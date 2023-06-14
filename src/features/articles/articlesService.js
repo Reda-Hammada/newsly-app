@@ -33,9 +33,9 @@ const fetchPersonalizedFeed = async () => {
 const fetchArticlesByKeywordAndFilter = async (data) => {
   // using two requests because this API provider does not provide an endpoit to search and filter by source and category in the same time
   // to filter with sources
-  const searchAndFilterWithSources = `https://newsapi.org/v2/everything?q=${data.keyword}&source=${data.source}&from=${data.date}&apiKey=e056ce2e987c4986a3bb905059444cd4`;
+  const searchAndFilterWithSources = `https://newsapi.org/v2/everything?q=${data.keyword}&source=${data.source}&from=${data.date}&apiKey=655a69f16700449489c58472d0de9b1a`;
   // to filter with categories
-  const searchAndFilterWithCategories = `https://newsapi.org/v2/top-headlines?q=${data.keyword}&category=${data.category}&from=${data.date}&apiKey=e056ce2e987c4986a3bb905059444cd4`;
+  const searchAndFilterWithCategories = `https://newsapi.org/v2/top-headlines?q=${data.keyword}&category=${data.category}&from=${data.date}&apiKey=655a69f16700449489c58472d0de9b1a`;
 
   const [responseBySource, responseByCategory] = await Promise.all([
     axios.get(searchAndFilterWithSources),

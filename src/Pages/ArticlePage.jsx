@@ -8,6 +8,7 @@ import { useSelector } from "react-redux";
 
 const ArticlePage = () => {
   const { isAuthenticated } = useSelector((state) => state.auth);
+  const { isDarkTheme } = useSelector((state) => state.theme);
   const location = useLocation();
   const { article } = location.state;
 
@@ -50,7 +51,11 @@ const ArticlePage = () => {
     // article for authenticated users
   } else if (isAuthenticated === true) {
     return (
-      <div className="overflow-y-scroll overflow-x-hidden h-screen">
+      <div
+        className={`${
+          isDarkTheme ? "bg-dark-theme-color text-white " : "bg-white"
+        }overflow-y-scroll overflow-x-hidden h-screen`}
+      >
         <Header />
         <ReuSableLink title={article.title} />
         <Auth />
@@ -60,7 +65,7 @@ const ArticlePage = () => {
               <h1 className="font-bold text-3xl mt-6 mb-1">{article.title}</h1>
             </div>
             <div className="mb-9">
-              <p className="text-gray-400 ml-2">{article.author}</p>
+              <p className=" ml-2">{article.author}</p>
             </div>
             <div className="">
               <img

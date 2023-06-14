@@ -2,8 +2,10 @@ import React, { useContext } from "react";
 import Login from "./form/Login";
 import Signup from "./form/Signup";
 import { AuthContext } from "../App";
+import { useSelector } from "react-redux";
 const Auth = () => {
   const { authState, updateAuthState } = useContext(AuthContext);
+  const { isAuthenticated } = useSelector((state) => state.auth);
 
   const closeAuthForm = () => {
     updateAuthState("", false);
@@ -14,7 +16,7 @@ const Auth = () => {
     form if isAuth is true */
   }
 
-  return authState.isAuth ? (
+  return authState.isAuth && isAuthenticated === false ? (
     <section className="w-[100wh] h-[100%] overflow-hidden right-0 left-0   absolute top-0 bg-opacity-50 bg-black">
       <div className="w-[370px] rounded-md bg-white ml-auto mr-auto mt-[6%] h-fit  pb-[3%]">
         <div

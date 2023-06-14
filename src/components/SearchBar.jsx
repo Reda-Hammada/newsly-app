@@ -8,6 +8,8 @@ import { availableCategories } from "../features/articles/articleSlice";
 const SearchBar = () => {
   const dispatch = useDispatch();
   const { categories } = useSelector((state) => state.articles);
+  const { isDarkTheme } = useSelector((state) => state.theme);
+
   const { register, handleSubmit } = useForm();
 
   useEffect(() => {
@@ -28,11 +30,15 @@ const SearchBar = () => {
           Search for article :
         </p>
       </div>
-      <div className="w-[100%] pb-12 rounded bg-gray-100 ml-auto mr-auto  mt-12">
+      <div
+        className={` w-[100%] pb-12 rounded ${
+          isDarkTheme ? "bg-[#454545] text-white" : "bg-gray-100 text-black"
+        }ml-auto mr-auto  mt-12`}
+      >
         <form onSubmit={handleSubmit(searchArticles)}>
           <div className="w-[100%]  text-center">
             <input
-              className=" mt-12 pl-5 h-[40px] w-[70%] "
+              className=" text-black mt-12 pl-5 h-[40px] w-[70%] "
               type="search"
               placeholder="search by keywoard"
               required
@@ -45,7 +51,10 @@ const SearchBar = () => {
               {/* Categories */}
               <div className="mt-2">
                 <label className="font-bold">Category :</label>
-                <select className=" w-[100%]" {...register("category")}>
+                <select
+                  className=" w-[100%] text-black"
+                  {...register("category")}
+                >
                   <option value=""></option>
 
                   {categories &&
@@ -58,7 +67,10 @@ const SearchBar = () => {
 
               <div className="mt-2">
                 <label className="font-bold">Source :</label>
-                <select className=" w-[100%]" {...register("source")}>
+                <select
+                  className=" text-black w-[100%]"
+                  {...register("source")}
+                >
                   <option value=""></option>
                   <option value="ABC News">ABC News</option>
                   <option value="The Guardian">The Guardian</option>
@@ -74,7 +86,7 @@ const SearchBar = () => {
                 <label className="font-bold mr-3 ">date :</label>
 
                 <input
-                  className="w-[100%] text-center"
+                  className="w-[100%] text-black text-center"
                   type="date"
                   {...register("date")}
                 />

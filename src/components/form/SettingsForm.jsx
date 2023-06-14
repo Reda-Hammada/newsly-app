@@ -27,12 +27,12 @@ const SettingsForm = () => {
     dispatch(UpdateUserData(userData));
   };
   return (
-    <section className="mb-12">
+    <section className=" h-screen">
       <form onSubmit={handleSubmit(updateUserData)}>
         <div className="mt-6 ">
           <label className="font-bold text-xl ml-[6%]">Full name:</label>
           <br />
-          <div className="text-start ml-[6%] mt-2 ">
+          <div className=" text-black  text-start ml-[6%] mt-2 ">
             <input
               className=" border pl-3 border-md h-[35px] bg-gray-100 mt-2  w-[60%]  "
               type="text"
@@ -45,7 +45,7 @@ const SettingsForm = () => {
           <label className="font-bold text-xl ml-[6%]">Email:</label>
           <div className="text-start ml-[6%] mt-2">
             <input
-              className=" border pl-3 border-md h-[35px] bg-gray-100 mt-2 w-[60%]  "
+              className=" text-black  border pl-3 border-md h-[35px] bg-gray-100 mt-2 w-[60%]  "
               type="email"
               name="email"
               {...register("email")}
@@ -56,7 +56,7 @@ const SettingsForm = () => {
           <label className="font-bold text-xl ml-[6%]">Old password:</label>
           <div className="text-start ml-[6%] mt-2">
             <input
-              className="pl-3 border border-md h-[35px] bg-gray-100 mt-2  w-[60%]  "
+              className="pl-3 border text-black  border-md h-[35px] bg-gray-100 mt-2  w-[60%]  "
               type="password"
               name="oldpassword"
               {...register("oldpassword")}
@@ -72,7 +72,7 @@ const SettingsForm = () => {
           <label className="font-bold text-xl ml-[6%]">New password:</label>
           <div className="text-start ml-[6%] mt-2">
             <input
-              className="pl-3 border border-md h-[35px] bg-gray-100 mt-2  w-[60%]  "
+              className="pl-3 text-black  border border-md h-[35px] bg-gray-100 mt-2  w-[60%]  "
               type="password"
               name="newpassword"
               {...register("newpassword", {
@@ -92,7 +92,7 @@ const SettingsForm = () => {
           <label className="font-bold text-xl ml-[6%]">Avatar:</label>
           <div className="text-start ml-[6%] mt-2">
             <input
-              className="h-[35px]  mt-2  w-[60%]  "
+              className="h-[35px] text-black  mt-2  w-[60%]  "
               type="file"
               name="image"
               {...register("image", {

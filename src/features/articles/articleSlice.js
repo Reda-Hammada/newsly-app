@@ -2,7 +2,7 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
 import articlesService from "./articlesService";
 const initialState = {
-  articles: [],
+  articles: [], 
   isLoading: false,
   categories: [],
   error: false,
@@ -108,6 +108,8 @@ export const articlesSlice = createSlice({
     });
     builder.addCase(searchAndFilter.fulfilled, (state, action) => {
       state.isLoading = false;
+      state.isPersonalizedFeed = false
+      state.isSearchAndFilter = true
       state.articles = {
         ...action.payload.articlesBySource,
         ...action.payload.articlesByCategory,

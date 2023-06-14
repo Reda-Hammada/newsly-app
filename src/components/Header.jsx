@@ -10,6 +10,7 @@ import useUserFromLocalStorage from "../hooks/useUserFromLocalStorage";
 const Header = () => {
   const { updateAuthState } = useContext(AuthContext);
   const { isAuthenticated } = useSelector((state) => state.auth || {});
+  const { isDarkTheme } = useSelector((state) => state.theme);
   const user = useUserFromLocalStorage();
 
   const [settingState, setSettingState] = useState(false);
@@ -27,7 +28,13 @@ const Header = () => {
 
   return (
     <div>
-      <header className="border-b-2 fixed top-0 right-0 w-full bg-white  border-solid border-gray-100 ">
+      <header
+        className={`border-b-2 fixed top-0 right-0 w-full ${
+          isDarkTheme
+            ? "bg-dark-theme-color border-gray-600"
+            : " bg-white border-gray-100"
+        }  border-solid  `}
+      >
         <nav className=" flex justify-between pt-2">
           <div className=" w-[150px]">
             <img src={Logo} alt="Newsly Logo" />
