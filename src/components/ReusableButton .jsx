@@ -2,8 +2,12 @@ import React from "react";
 import PropTypes from "prop-types";
 
 const ReusableButton = (props) => {
-  const { text, className } = props;
-  return <button className={` ${className}`}>{text}</button>;
+  const { text, className, disabled } = props;
+  return (
+    <button disabled={disabled} className={` ${className}`}>
+      {text}
+    </button>
+  );
 };
 
 ReusableButton.propTypes = {

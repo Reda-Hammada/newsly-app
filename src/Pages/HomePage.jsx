@@ -6,6 +6,7 @@ import SearchBar from "../components/SearchBar";
 import Auth from "../components/Auth";
 import Feed from "../components/Feed";
 import Footer from "../components/Footer";
+import FilterPopup from "../components/form/FilterPopup";
 const HomePage = () => {
   const { isDarkTheme } = useSelector((state) => state.theme);
 
@@ -19,6 +20,7 @@ const HomePage = () => {
     >
       <Header />
       <HeroSection />
+      <FilterPopup />
       {isAuthenticated === true ? <SearchBar /> : <Auth />}
       <Feed />
       <Footer />
