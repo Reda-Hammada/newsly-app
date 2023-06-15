@@ -4,7 +4,7 @@ import axios from "axios";
 const newYorkTimesAPI =
   "https://api.nytimes.com/svc/topstories/v2/world.json?api-key=GmFRNUnADqSdTumRHl11225UUGWsSY4w";
 // route api to get available categories for users to choose
-const categoriesAPI = "http://127.0.0.1:8000/api/categories";
+const categoriesAPI = "http://localhost:8000/api/categories";
 
 // open news api key
 const newsAPIKEY = "fba908da20b94b9dbd1cb874c4598d1e";
