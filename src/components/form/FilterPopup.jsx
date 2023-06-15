@@ -1,14 +1,18 @@
 import React, { useEffect, useState } from "react";
-import { useForm } from "react-hook-form";
 import { useSelector, useDispatch } from "react-redux";
-import fetchAvailabaleCategory from "../../features/articles/articleSlice";
 import ReusableButton from "../ReusableButton ";
+import preferencesService from "../../features/preferences/preferencesService";
+import { availableCategories } from "../../features/articles/articleSlice";
+import { useNavigate } from "react-router-dom";
 
-const FilterPoPUp = () => {
+const FilterPoPUp = (props) => {
+  const { PrefSetting, showPrefSetting } = props;
   const dispatch = useDispatch();
-
+  const [isOpen, setOpen] = useState(true);
   const { categories } = useSelector((state) => state.articles);
 
+  const { isAuthenticated } = useSelector((state) => state.auth || {});
+  const navigate = useNavigate();
   const sources = [
     "ABC News",
     "The Guardian",
@@ -100,16 +104,18 @@ const FilterPoPUp = () => {
     }
   };
 
-  const submitPereferences = () => {};
+  const submitPereferences = () => {
+    preferencesService.storePreferences(selectedPreferences);
+  };
 
   useEffect(() => {
-    dispatch(fetchAvailabaleCategory);
-  }, [selectedPreferences]);
+    dispatch(availableCategories());
+  }, [dispatch]);
 
   return (
     <section className="w-[100wh] h-[100%] overflow-hidden right-0 left-0   absolute top-0 bg-opacity-50 bg-black">
       <div
-        className={`w-[400px] h-[83vh] mt-[5%] ml-auto mr-auto rounded ${
+        className={`w-[380px] h-[95vh] overflow-y-scroll mt-[2%] ml-auto mr-auto rounded ${
           isDarkTheme ? "bg-dark-theme-color text-white" : "bg-white text-black"
         }`}
       >
@@ -149,7 +155,7 @@ const FilterPoPUp = () => {
                       selectedPreferences.sources.includes(source)
                         ? "text-white bg-red-600"
                         : "bg-gray-400 text-white"
-                    } ml-3 mt-3 pl-2 pr-2 cursor-pointer rounded text-[18px]`}
+                    } ml-3 mt-3 pl-2 pr-2 h-[40px] pt-2 pb-1 cursor-pointer rounded text-[18px]`}
                     key={source}
                   >
                     {source}
@@ -167,7 +173,7 @@ const FilterPoPUp = () => {
                       selectedPreferences.authors.includes(author)
                         ? "text-white bg-red-600"
                         : "bg-gray-400 text-white"
-                    } ml-3 mt-3 pl-2 pr-2 cursor-pointer rounded text-[18px]`}
+                    } ml-3 mt-3 pl-2 pr-2  h-[40px] pt-2 pb-1 cursor-pointer rounded text-[18px]`}
                     key={author}
                   >
                     {author}
@@ -175,17 +181,33 @@ const FilterPoPUp = () => {
                 ))}
               </div>
             </div>
-            <div className="w-[100%]  pr-8 border-t mt-5 border-bg-gray-300 pt-2  border-solid  ">
+            <div className="w-[100%] pb-3  pr-8 border-t mt-5 border-bg-gray-300 pt-2  border-solid  ">
               <ReusableButton
-                disabled={selectedPreferences === null ? true : false}
+                disabled={
+                  selectedPreferences.categories.length === 0 ||
+                  selectedPreferences.authors.length === 0 ||
+                  selectedPreferences.sources.length === 0
+                    ? true
+                    : false
+                }
                 text="save"
                 className={`text-white float-right   w-[100px] mt-3 rounded  h-[40px] bg-red-500  font-bold ${
-                  selectedPreferences === null
+                  selectedPreferences.categories.length === 0 ||
+                  selectedPreferences.authors.length === 0 ||
+                  selectedPreferences.sources.length === 0
                     ? "disabled:opacity-50  cursor-default"
-                    : "hover:bg-red-600 cursor-pointer"
+                    : "hover:bg-gray-400 cursor-pointer"
                 }`}
                 type="submit"
               />
+              {PrefSetting === true ? (
+                <div onClick={() => showPrefSetting(false)}>
+                  <ReusableButton
+                    text="cancel"
+                    className="text-white mb-2 float-right mr-6   w-[100px] mt-3 rounded  h-[40px] bg-gray-500  font-bold "
+                  />
+                </div>
+              ) : null}
             </div>
           </form>
         </div>

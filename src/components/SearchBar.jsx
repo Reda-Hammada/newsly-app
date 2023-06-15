@@ -82,7 +82,7 @@ const SearchBar = () => {
                 </select>
               </div>
               {/* date */}
-              <div className="mt-3 ">
+              <div className="mt-2 ">
                 <label className="font-bold mr-3 ">date :</label>
 
                 <input

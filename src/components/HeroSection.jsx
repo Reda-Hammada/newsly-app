@@ -1,7 +1,6 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import ReusableButton from "./ReusableButton ";
 import { AuthContext } from "../App";
-import Greeting from "../features/greetingService";
 import useUserFromLocalStorage from "../hooks/useUserFromLocalStorage";
 import { useSelector } from "react-redux";
 
@@ -9,13 +8,27 @@ const HeroSection = () => {
   const { isAuthenticated } = useSelector((state) => state.auth || {});
   const { updateAuthState } = useContext(AuthContext);
   const user = useUserFromLocalStorage();
+  const [greeting, setGreeting] = useState("");
+
+  const refresh = () => window.location.reload(true);
 
   const openSignUp = () => {
     updateAuthState("signUp", true);
   };
 
-  const greeting = Greeting();
+  useEffect(() => {
+    if (isAuthenticated === true) {
+      const currentHour = new Date().getHours();
 
+      if (currentHour >= 5 && currentHour < 12) {
+        setGreeting(`Good Morning, ${user && user.fullname} !`);
+      } else if (currentHour >= 12 && currentHour < 17) {
+        setGreeting(`Good Afternoon, ${user && user.fullname} !`);
+      } else {
+        setGreeting(`Good Evening, ${user && user.fullname} !`);
+      }
+    }
+  }, [user,isAuthenticated]);
   return (
     <section className="w-full mt-28">
       {isAuthenticated === false ? (
@@ -42,11 +55,7 @@ const HeroSection = () => {
       ) : (
         <div className="ml-5 w-[100%] text-start">
           <p className="font-bold  ">
-            {user !== null ? (
-              <p className="text-xl">
-                {greeting}, {user.fullname} !
-              </p>
-            ) : null}
+            {isAuthenticated ? <p className="text-xl">{greeting}</p> : null}
           </p>
         </div>
       )}

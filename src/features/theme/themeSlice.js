@@ -15,7 +15,7 @@ export const themeSlice = createSlice({
       state.isDarkTheme = newTheme; // Update the state
     },
     revokeDarkTheme: (state) => {
-      localStorage.removeItem("isDarkTheme");
+      localStorage.removeItem("isDarktheme");
       state.isDarkTheme = false;
     },
   },

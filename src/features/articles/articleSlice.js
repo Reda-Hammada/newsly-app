@@ -2,7 +2,7 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
 import articlesService from "./articlesService";
 const initialState = {
-  articles: [], 
+  articles: [],
   isLoading: false,
   categories: [],
   error: false,
@@ -51,7 +51,6 @@ export const searchAndFilter = createAsyncThunk(
       const response = await articlesService.fetchArticlesByKeywordAndFilter(
         data
       );
-      // const { articlesByCategory, articlesBySource } = response;
 
       return response;
     } catch (err) {
@@ -66,9 +65,10 @@ export const searchAndFilter = createAsyncThunk(
 );
 export const personalizedFeed = createAsyncThunk(
   '"articles/user"',
-  async () => {
+  async (preferences) => {
     try {
-      // return await articlesService;
+      const response = await articlesService.fetchPersonalizedFeed(preferences);
+      return response;
     } catch (err) {
       const message =
         (err.response && err.response.data && err.response.data.message) ||
@@ -108,12 +108,26 @@ export const articlesSlice = createSlice({
     });
     builder.addCase(searchAndFilter.fulfilled, (state, action) => {
       state.isLoading = false;
-      state.isPersonalizedFeed = false
-      state.isSearchAndFilter = true
+      state.isPersonalizedFeed = false;
+      state.isSearchAndFilter = true;
       state.articles = {
         ...action.payload.articlesBySource,
         ...action.payload.articlesByCategory,
       };
+    });
+    builder.addCase(personalizedFeed.pending, (state, action) => {
+      state.isLoading = true;
+      state.isSearchAndFilter = false;
+      state.isPersonalizedFeed = true;
+    });
+    builder.addCase(personalizedFeed.fulfilled, (state, action) => {
+      state.isLoading = false;
+      state.isSearchAndFilter = false;
+      state.isPersonalizedFeed = true;
+      state.articles = action.payload;
+    });
+    builder.addCase(personalizedFeed.rejected, (state, action) => {
+      state.error = true;
     });
   },
 });

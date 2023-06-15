@@ -10,7 +10,9 @@ import SettingsForm from "../components/form/SettingsForm";
 
 const SettingPage = () => {
   const user = useUserFromLocalStorage();
-  const { isAuthenticated } = useSelector((state) => state.auth);
+  const { isAuthenticated, message, isSuccess } = useSelector(
+    (state) => state.auth
+  );
   const { isDarkTheme } = useSelector((state) => state.theme);
 
   const navigate = useNavigate();
@@ -22,7 +24,7 @@ const SettingPage = () => {
     } else {
       navigate("/Settings");
     }
-  }, [isAuthenticated]);
+  }, [isAuthenticated, user, message, isSuccess, navigate]);
   return (
     <section
       className={` ${
@@ -31,32 +33,33 @@ const SettingPage = () => {
     >
       <Header />
       <ReuSableLink secondLink="Settings" />
-      <section className="w-full h-[100% ] mt-[5%]">
+      {isSuccess === true ? (
+        <div
+          className={` mt-[-5px] pt-2 pb-2 pl-2 ${
+            isDarkTheme ? "bg-[#454545]   text-white" : "bg-gray-400 "
+          }w-full mt-[83px] `}
+        >
+          {message}
+        </div>
+      ) : null}
+
+      <section className="w-full h-[100vh] mt-[5%]">
         <div className=" w-[80%] border-b pb-6 pl-6 flex justiyf-start  ml-[5%]">
-          {user && user.imagePath === false ? (
-            <>
-              <div className="">
-                <Avatar
-                  className={
-                    "W-[80px]  h-[70px] border-3 mr-12 mt-2  border rounded-full border-gray-300"
-                  }
-                  imageUser={avatar}
-                />
-              </div>
-              <div>
-                <p className="text-2xl mt-4  uppercase   font-bold">
-                  {user && user.fullname}
-                </p>
-              </div>
-            </>
-          ) : (
-            <div className="w-[80%]">
-              <Avatar imageUser={user && user.imagePath} />
-              <p className="text-2xl uppercase  font-bold">
+          <>
+            <div className="">
+              <Avatar
+                className={
+                  "W-[80px]  h-[70px] border-3 mr-12 mt-2  border rounded-full border-gray-300"
+                }
+                imageUser={avatar}
+              />
+            </div>
+            <div>
+              <p className="text-2xl mt-4  uppercase   font-bold">
                 {user && user.fullname}
               </p>
             </div>
-          )}
+          </>
         </div>
         {/* user settings */}
         <div>

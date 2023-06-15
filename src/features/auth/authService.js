@@ -1,6 +1,7 @@
 import axios from "axios";
 
 const API_URL = "http://127.0.0.1:8000/api";
+const user = localStorage.user ? JSON.parse(localStorage.user) : null;
 
 // Register a new user
 const register = async (userData) => {
@@ -16,32 +17,33 @@ const register = async (userData) => {
 // log in user
 const logIn = async (userData) => {
   const response = await axios.post(`${API_URL}/login`, userData);
-  if (response.data) {
+  if (response.data.data) {
     localStorage.setItem("user", JSON.stringify(response.data.data));
     localStorage.setItem("isAuthenticated", true);
 
-    return response.data.data; // Return the response data
+    return response; // Return the response data
   }
 };
 
 const UpdateUserData = async (userData) => {
-  const user = localStorage.getItem("user");
-  const response = await axios.post(`${API_URL}/user/${user.id}`, userData, {
+  const userId = user.id;
+  const accessToken = user.accessToken;
+  const response = await axios.put(`${API_URL}/user/${userId}`, userData, {
     headers: {
-      Authorization: "Bearer " + localStorage.user.accessToken,
+      Authorization: "Bearer " + accessToken,
       "Content-Type": "application/json",
     },
   });
-  if (response.data) {
+  if (response.data.data) {
     localStorage.setItem("user", JSON.stringify(response.data.data));
-
-    return response.data.data; // Return the response data
+    return response; // Return the response data
   }
 };
 
 const logout = () => {
   localStorage.removeItem("user");
   localStorage.removeItem("isAuthenticated");
+  localStorage.removeItem("isDarktheme");
 };
 
 const authService = {

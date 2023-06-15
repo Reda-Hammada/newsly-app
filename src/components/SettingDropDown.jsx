@@ -4,6 +4,8 @@ import { useDispatch } from "react-redux";
 import { LogoutUser } from "../features/auth/authSlice";
 import { useSelector } from "react-redux";
 import { toggleTheme, revokeDarkTheme } from "../features/theme/themeSlice";
+import { useState } from "react";
+
 
 const SettingDropDown = () => {
   const dispatch = useDispatch();
@@ -14,10 +16,15 @@ const SettingDropDown = () => {
     dispatch(toggleTheme());
     console.log(isDarkTheme);
   };
+
+  const navigateAndRefresh = (path) => {
+    navigate(path);
+    window.location.reload();
+  };
   const logOutUser = () => {
     dispatch(revokeDarkTheme());
     dispatch(LogoutUser());
-    navigate("/");
+    navigateAndRefresh("/");
   };
   if (isAuthenticated === true) {
     return (

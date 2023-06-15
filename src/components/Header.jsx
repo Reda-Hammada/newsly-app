@@ -9,7 +9,9 @@ import SettingDropDown from "./SettingDropDown";
 import useUserFromLocalStorage from "../hooks/useUserFromLocalStorage";
 const Header = () => {
   const { updateAuthState } = useContext(AuthContext);
-  const { isAuthenticated } = useSelector((state) => state.auth || {});
+  const { isAuthenticated, isSuccess } = useSelector(
+    (state) => state.auth || {}
+  );
   const { isDarkTheme } = useSelector((state) => state.theme);
   const user = useUserFromLocalStorage();
 
@@ -40,7 +42,6 @@ const Header = () => {
             <img src={Logo} alt="Newsly Logo" />
           </div>
           {isAuthenticated === true ? (
-            user && user.imagePath == false ? (
               <div onClick={toggleSettings}>
                 <Avatar
                   className={
@@ -49,16 +50,7 @@ const Header = () => {
                   imageUser={avatar}
                 />
               </div>
-            ) : (
-              <div onClick={toggleSettings}>
-                <Avatar
-                  className={
-                    "W-[70px] cursor-pointer h-[60px] border-3 mr-12 mt-2  border rounded-full border-gray-300"
-                  }
-                  imageUser={user && user.imagePath}
-                />
-              </div>
-            )
+            
           ) : (
             // Auth Buttons
             <div className="flex mr-5 mt-3">

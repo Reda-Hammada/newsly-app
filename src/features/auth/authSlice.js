@@ -50,7 +50,19 @@ export const LogoutUser = createAsyncThunk("auth/logout", async (thunkAPI) => {
 
 export const UpdateUserData = createAsyncThunk(
   "auth/Updateuserdata",
-  async () => {}
+  async (user, thunkAPI) => {
+    try {
+      const response = await authService.UpdateUserData(user);
+      return response.data;
+    } catch (err) {
+      const message =
+        (err.response && err.response.data && err.response.data.message) ||
+        err.message ||
+        err.toString();
+
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
 );
 
 export const authSlice = createSlice({
@@ -88,7 +100,7 @@ export const authSlice = createSlice({
     });
     builder.addCase(logInUser.rejected, (state, action) => {
       state.isAuthenticated = false;
-      state.message = action.payload;
+      state.message = "Email or password Invalid";
       state.isSuccess = false;
       state.isError = true;
       state.isLogin = true;
@@ -102,12 +114,12 @@ export const authSlice = createSlice({
     builder.addCase(UpdateUserData.fulfilled, (state, action) => {
       state.isError = false;
       state.isSuccess = true;
-      state.message = action.payload;
+      state.message = action.payload.message;
     });
     builder.addCase(UpdateUserData.rejected, (state, action) => {
       state.isSuccess = false;
       state.isError = true;
-      state.message = action.payload;
+      state.message = action.payload.response;
     });
   },
 });

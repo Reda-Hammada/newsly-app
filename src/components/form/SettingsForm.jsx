@@ -13,6 +13,7 @@ const SettingsForm = () => {
     handleSubmit,
     formState: { errors },
     setValue,
+    getValues,
   } = useForm();
 
   useEffect(() => {
@@ -20,11 +21,30 @@ const SettingsForm = () => {
       setValue("fullname", user.fullname);
       setValue("email", user.email);
     }
-  }, [user, setValue]);
+  }, [user, getValues, setValue]);
 
-  const updateUserData = (data) => {
-    const userData = data;
-    dispatch(UpdateUserData(userData));
+  const updateUserData = () => {
+    const updatedData = {};
+    const formValues = getValues();
+
+    // Check if the value has changed and add it to the updatedData object
+    if (formValues.fullname !== user.fullname) {
+      updatedData.fullname = formValues.fullname;
+    }
+    if (formValues.email !== user.email) {
+      updatedData.email = formValues.email;
+    }
+    if (formValues.oldpassword) {
+      updatedData.oldpassword = formValues.oldpassword;
+    }
+    if (formValues.newpassword) {
+      updatedData.newpassword = formValues.newpassword;
+    }
+    if (formValues.image) {
+      updatedData.image = formValues.image[0];
+    }
+
+    dispatch(UpdateUserData(updatedData));
   };
   return (
     <section className=" h-screen">
@@ -88,28 +108,7 @@ const SettingsForm = () => {
             )}
           </div>
         </div>
-        <div className="mt-6">
-          <label className="font-bold text-xl ml-[6%]">Avatar:</label>
-          <div className="text-start ml-[6%] mt-2">
-            <input
-              className="h-[35px] text-black  mt-2  w-[60%]  "
-              type="file"
-              name="image"
-              {...register("image", {
-                validate: {
-                  isImage: (value) =>
-                    value && value[0] && value[0].type.startsWith("image/"),
-                },
-              })}
-              accept="image/*"
-            />
-          </div>
-          <div className="text-start mt-2 ml-[6%] font-bold">
-            {errors.image && errors.image.type === "isImage" && (
-              <p className="text-red-500">Only image files are allowed</p>
-            )}
-          </div>
-        </div>
+
         <div className="text-start ml-[6%] mt-6">
           <ReusableButton
             text="update"

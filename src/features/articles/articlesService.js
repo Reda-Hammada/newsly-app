@@ -5,8 +5,9 @@ const newYorkTimesAPI =
   "https://api.nytimes.com/svc/topstories/v2/world.json?api-key=GmFRNUnADqSdTumRHl11225UUGWsSY4w";
 // route api to get available categories for users to choose
 const categoriesAPI = "http://127.0.0.1:8000/api/categories";
-// personalized news
-const newsAPIForUser = "";
+
+// open news api key
+const newsAPIKEY = "fba908da20b94b9dbd1cb874c4598d1e";
 
 const fetchAvailabaleCategory = async () => {
   const response = await axios.get(categoriesAPI);
@@ -22,20 +23,53 @@ const fetchArtilesForVisitor = async () => {
   }
 };
 
-// fetch article from newyorktimes for authenticated user
-const fetchPersonalizedFeed = async () => {
-  const response = await axios.get(newsAPIForUser);
-  if (response.data) {
-    return response.data;
+const fetchPersonalizedFeed = async (preferences) => {
+  // extract user pereferences filter the null ones
+  console.log(`preferecnes ${preferences}`);
+  const categories = preferences
+    .map((preference) => preference.preferred_category)
+    .filter((category) => category !== null);
+  console.log(categories);
+  const sources = preferences
+    .map((preference) => preference.preferred_source)
+    .filter((source) => source !== null);
+  console.log(sources);
+
+  const authors = preferences
+    .map((preference) => preference.preferred_author)
+    .filter((author) => author !== null);
+  let articles = [];
+
+  // Search by categories
+  for (const category of categories) {
+    const APIpersonalizedByCategory = `https://newsapi.org/v2/top-headlines?q=${category}&apiKey=${newsAPIKEY}`;
+    const responseByCategory = await axios.get(APIpersonalizedByCategory);
+    articles = articles.concat(responseByCategory.data.articles);
   }
+
+  // Search by sources
+  for (const source of sources) {
+    const APIpersonalizedBySource = `https://newsapi.org/v2/top-headlines?sources=${source}&apiKey=${newsAPIKEY}`;
+    const responseBySource = await axios.get(APIpersonalizedBySource);
+    articles = articles.concat(responseBySource.data.articles);
+  }
+
+  // Search by authors
+  for (const author of authors) {
+    const APIpersonalizedByAuthor = `https://newsapi.org/v2/everything?q=${author}&apiKey=${newsAPIKEY}`;
+    const responseByAuthor = await axios.get(APIpersonalizedByAuthor);
+    articles = articles.concat(responseByAuthor.data.articles);
+  }
+
+  return articles;
 };
 
 const fetchArticlesByKeywordAndFilter = async (data) => {
   // using two requests because this API provider does not provide an endpoit to search and filter by source and category in the same time
   // to filter with sources
-  const searchAndFilterWithSources = `https://newsapi.org/v2/everything?q=${data.keyword}&source=${data.source}&from=${data.date}&apiKey=655a69f16700449489c58472d0de9b1a`;
+  const searchAndFilterWithSources = `https://newsapi.org/v2/everything?q=${data.keyword}&source=${data.source}&from=${data.date}&apiKey=${newsAPIKEY}`;
   // to filter with categories
-  const searchAndFilterWithCategories = `https://newsapi.org/v2/top-headlines?q=${data.keyword}&category=${data.category}&from=${data.date}&apiKey=655a69f16700449489c58472d0de9b1a`;
+  const searchAndFilterWithCategories = `https://newsapi.org/v2/top-headlines?q=${data.keyword}&category=${data.category}&from=${data.date}&apiKey=${newsAPIKEY}`;
 
   const [responseBySource, responseByCategory] = await Promise.all([
     axios.get(searchAndFilterWithSources),

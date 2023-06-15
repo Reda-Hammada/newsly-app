@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import Header from "../components/Header";
 import HeroSection from "../components/HeroSection";
@@ -6,7 +6,7 @@ import SearchBar from "../components/SearchBar";
 import Auth from "../components/Auth";
 import Feed from "../components/Feed";
 import Footer from "../components/Footer";
-import FilterPopup from "../components/form/FilterPopup";
+
 const HomePage = () => {
   const { isDarkTheme } = useSelector((state) => state.theme);
 
@@ -20,7 +20,6 @@ const HomePage = () => {
     >
       <Header />
       <HeroSection />
-      <FilterPopup />
       {isAuthenticated === true ? <SearchBar /> : <Auth />}
       <Feed />
       <Footer />
